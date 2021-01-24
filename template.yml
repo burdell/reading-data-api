@@ -1,0 +1,50 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Resources:
+  GraphQL:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: graphql/index.handler
+      Runtime: nodejs12.x
+      Role: arn:aws:iam::435716529842:role/LambdaDynamo
+      Events:
+        AnyRequest:
+          Type: Api
+          Properties:
+            Path: /graphql
+            Method: ANY
+
+  GoodreadsSync:
+    Type: AWS::Lambda::Function
+    Properties:
+      Environment:
+        Variables:
+          GOODREADS_KEY: '{{resolve:secretsmanager:GoodreadsData:SecretString:GOODREADS_KEY}}'
+          GOODREADS_USER: '38789987'
+      Handler: goodreads/index.handler
+      Runtime: nodejs12.x
+      Role: arn:aws:iam::435716529842:role/LambdaDynamo
+
+  GoodreadsEvent:
+    Type: AWS::Events::Rule
+    Properties:
+      ScheduleExpression: cron(0 6 * * ? *)
+      State: 'ENABLED'
+      Targets:
+        - Arn:
+            Fn::GetAtt:
+              - 'GoodreadsSync'
+              - 'Arn'
+          Id: 'TargetFunctionV1'
+
+  GoodreadsPermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      FunctionName:
+        Ref: 'GoodreadsSync'
+      Action: 'lambda:InvokeFunction'
+      Principal: 'events.amazonaws.com'
+      SourceArn:
+        Fn::GetAtt:
+          - 'GoodreadsEvent'
+          - 'Arn'

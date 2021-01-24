@@ -1,0 +1,24 @@
+[
+  {
+    "author": "Leo Tolstoy",
+    "book_id": 93050,
+    "date_read": "2019/03/03",
+    "isbn": "=\"9780679410003",
+    "isbn_13": "=\"9780679410003",
+    "my_rating": 5,
+    "my_review": "",
+    "number_of_pages": 1016,
+    "title": "Anna Karenina"
+  },
+  {
+    "author": "C.S. Lewis",
+    "book_id": 33512527,
+    "date_read": "2019/08/17",
+    "isbn": "=\"0062565419",
+    "isbn_13": "=\"",
+    "my_rating": 5,
+    "my_review": "",
+    "number_of_pages": 368,
+    "title": "Till We Have Faces: A Myth Retold"
+  }
+]

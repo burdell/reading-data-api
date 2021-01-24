@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "module": "commonjs",
+    "target": "es5",
+    "esModuleInterop": true,
+    "declaration": true,
+    "allowSyntheticDefaultImports": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "jsx": "react",
+    "moduleResolution": "node",
+    "types": ["node", "graphql"],
+    "skipLibCheck": true,
+    "lib": ["dom", "es2015", "esnext.asynciterable"],
+    "outDir": "./dist",
+    "resolveJsonModule": true
+  },
+  "include": ["src/"],
+  "exclude": ["node_modules", "build", ".cache", "src/migrate"]
+}
